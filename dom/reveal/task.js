@@ -16,4 +16,4 @@ function isVisible(el) {
 }
 
 setInterval(() => {
-   isVisible(block)}, 1000)
+  isVisible(block)}, 1000)
