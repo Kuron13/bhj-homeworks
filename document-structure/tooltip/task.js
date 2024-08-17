@@ -1,25 +1,25 @@
-const tooltipElements = Array.from(document.querySelectorAll('.has-tooltip')); /* Найти все эелементы, которым требуется подсказка */
+const tooltipElements = Array.from(document.querySelectorAll('.has-tooltip'));
 
-const tooltip = document.createElement('div'); /* Создать подсказку с нужным тегом и классом */
+const tooltip = document.createElement('div');
 tooltip.classList.add('tooltip');
 
 tooltipElements.forEach((el) => {
-  el.onclick = () => {  /* Добавить обработчик кликов */
+  el.onclick = () => {
 
-    tooltip.classList.remove('tooltip_active'); /* Скрыть предыдущую подсказку */
+    if (tooltip.textContent == el.title) {
+        tooltip.classList.toggle('tooltip_active');
+        return false;
+    }
 
-    el.appendChild(tooltip);  /* Сделать подсказку дочерней к активному элементу */
+    tooltip.textContent = el.title;
+    el.after(tooltip);
 
-    let posEl = el.getBoundingClientRect(); /* Получить координаты родителя */
-
-    tooltip.style.left = posEl.left + document.body.scrollLeft + "px";  /* Изменить координаты подсказки в ссоответствии с родительскими */
+    let posEl = el.getBoundingClientRect();
+    tooltip.style.left = posEl.left + document.body.scrollLeft + "px";
     tooltip.style.top = posEl.top + document.body.scrollTop + 20 + "px";
-    tooltip.style.width = el.offsetWidth + "px";
-    tooltip.style.height = el.offsetHeight + "px";
 
-    tooltip.textContent = el.title;  /* Обновить текст подсказки */
-    tooltip.classList.add('tooltip_active');  /* Активировать подсказку */
+    tooltip.classList.add('tooltip_active');
 
-    return false;  /* Запретить обновление страницы */
+    return false;
   }
 })
