@@ -1,33 +1,20 @@
-const input = document.querySelector('.tasks__input'); /* Найти элемент ввода */
-const button = document.querySelector('.tasks__add'); /* Найти кнопку добавления */
-const tasksList = document.querySelector('.tasks__list'); /* Найти контейнер для списка задач */
+const input = document.querySelector('.tasks__input');
+const button = document.querySelector('.tasks__add');
+const tasksList = document.querySelector('.tasks__list');
 
-button.type = 'button'; /* Запретить обновление страницы */
+button.type = 'button';
 
-function addTask() { /* Обработчик для создания новой задачи */
-  if (input.value != '') { /* Если поле ввода пустое, то не добавлять задачу */
-    const task = document.createElement('div'); /* Создать контейнер задачи с нужным тегом и классом */
-    task.classList.add('task');
-    tasksList.appendChild(task); /* Добавить контейнер задачи в список задач */
-    task.innerHTML = '<div class="task__title">Сходить в магазин</div><a href="#" class="task__remove">&times;</a>'; /* Отредактировать структуру задачи */
-    task.querySelector('.task__title').textContent = input.value; /* Поменять название задачи */
-    task.querySelector('.task__remove').addEventListener('click', removeTask); /* Добавить кнопке удаления обработчик удаления */
+function addTask() {
+  if (input.value.trim() != '') {
+    tasksList.innerHTML = `<div class='task'><div class="task__title">${input.value}</div><a href="#" class="task__remove">&times;</a></div>`
+    tasksList.querySelector('.task__remove').addEventListener('click', removeTask);
   }
-  else {
-    console.log('Поле пустое');
-  }
+  input.value = '';
 }
 
-function removeTask(e) { /* Обработчик для удаления задачи */
-  const task = e.target.closest('.task');/* Найти задачу, которую нужно удалить */
-  task.remove(); /* Удалить задачу */
+function removeTask(e) {
+  const task = e.target.closest('.task');
+  task.remove();
 }
 
-button.addEventListener('click', addTask);/* Добавить обработчик создания задачи для кнопки "Добавить" */
-
-input.addEventListener('keyup', (e) => { /* Добавить обработчик создания задачи для поля ввода */
-  if (e.key == 'Enter') {
-    console.log('Нажата кнопка Enter');
-    addTask();
-  }
-})
+button.addEventListener('click', addTask);
