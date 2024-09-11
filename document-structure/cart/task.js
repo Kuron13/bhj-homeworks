@@ -16,15 +16,16 @@ function changeValue(e) {
 
 function productAdd(e) {
   product = e.target.closest('.product')
+  let productID = product.getAttribute('data-id')
   let cartProducts = Array.from(cart.querySelectorAll('.cart__product'));
 
-  const productInCart = cartProducts.find((prod) => prod.getAttribute('data-id') == product.getAttribute('data-id'));
+  const productInCart = cartProducts.find((prod) => prod.getAttribute('data-id') == productID);
   if (productInCart) {
     productVal = Number(productInCart.querySelector('.cart__product-count').textContent)
     productVal = productVal + Number(product.querySelector('.product__quantity-value').textContent);
     productInCart.querySelector('.cart__product-count').textContent = productVal;
   } else {
-    cart.insertAdjacentHTML('beforeend', `<div class="cart__product" data-id=${product.getAttribute('data-id')}>
+    cart.insertAdjacentHTML('beforeend', `<div class="cart__product" data-id=${productID}>
       <img class="cart__product-image" src=${product.querySelector('img').src}>
       <div class="cart__product-count">${Number(product.querySelector('.product__quantity-value').textContent)}</div>
     </div>`)
